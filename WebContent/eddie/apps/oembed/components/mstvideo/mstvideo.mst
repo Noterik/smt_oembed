@@ -1,0 +1,5 @@
+{{#mstvideo}}
+	<video id="mstvideo_player" controls autoplay>
+		<source id="mstvideo_player_video" src="{{url}}?ticket={{ticket}}" type="video/mp4">
+	</video>
+{{/mstvideo}}

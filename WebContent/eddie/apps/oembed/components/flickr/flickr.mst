@@ -1,0 +1,10 @@
+{{#flickr}}
+	<div id="flickr_player_metadata">
+		title : {{title}}<br/>
+		provider : {{provider_name}}<br/>
+		author : {{author_name}}<br/>
+		license : {{license}}<br />
+		size : {{width}}x{{height}}
+	</div>
+	<img id="flickr_player_image" src="{{url}}" />
+{{/flickr}}

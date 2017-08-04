@@ -1,0 +1,43 @@
+<app>
+
+	<jumper id="beta.mupop.net@/lou/mupop/oembed">
+		<target>/lou/domain/mupop/user/daniel/html5application/oembed</target>
+	</jumper>
+	
+	<jumper id="oembed.noterik.com@/lou/mupop/oembed">
+		<target>/lou/domain/mupop/user/daniel/html5application/oembed</target>
+	</jumper>
+	
+	<model id="default">
+	     <embedurl>/screen['embed']/url</embedurl>
+	     <embedtype>/screen['embed']/type</embedtype>
+	</model>
+	
+	<view id="#screen">
+		<template>screen.mst</template>
+		<controller id="ScreenController">
+		</controller>
+	</view>
+	
+	<view id="#oembed">
+		<template>oembed/oembed.mst</template>
+		<style>oembed/oembed.css</style>
+		<controller id="OembedController">
+		</controller>
+	</view>
+	
+	<view id="#flickr">
+		<template>flickr/flickr.mst</template>
+		<style>flickr/flickr.css</style>
+		<controller id="FlickrController">
+		</controller>
+	</view>
+	
+	<view id="#mstvideo">
+		<template>mstvideo/mstvideo.mst</template>
+		<style>mstvideo/mstvideo.css</style>
+		<controller id="MstVideoController">
+		</controller>
+	</view>
+
+</app>
