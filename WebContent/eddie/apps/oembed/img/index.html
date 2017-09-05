@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#embed {
+  position: absolute;
+  width:100%;
+  height:100%;
+}
+</style>
+</head>
+<body>
+	<div id="embed">
+	bla
+	</div>
+<script>
+        var searchParams = new URLSearchParams(window.location.search);
+        console.log(searchParams.get("id"));
+        var xmlHttp = new XMLHttpRequest();
+        var url = "http://oembed.euscreen.eu/services/oembed?format=json&url=http://oembed.noterik.com/euscreen/"+searchParams.get("id");
+        xmlHttp.open( "GET", url, false );    
+        xmlHttp.send( null );
+        var body = JSON.parse(xmlHttp.responseText);
+        document.getElementById("embed").innerHTML = body.html;
+</script>
+</body>
+</html>

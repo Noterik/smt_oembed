@@ -8,14 +8,38 @@
 		<target>/lou/domain/mupop/user/daniel/html5application/oembed</target>
 	</jumper>
 	
+	<jumper id="oembed.euscreen.eu@/lou/oembed/oembed">
+		<target>/lou/domain/euscreen/user/admin/html5application/oembed</target>
+	</jumper>
+	
 	<model id="default">
 	     <embedurl>/screen['embed']/url</embedurl>
 	     <embedtype>/screen['embed']/type</embedtype>
+	     <embeduseragent>/screen['embed']/embeduseragent</embeduseragent>
+	     <embedplatform>/screen['embed']/embedplatform</embedplatform>
+	     <keyeventowner>/screen['vars']/keyeventowner</keyeventowner>
+	     <statchange>/shared['oembed']/statchange</statchange>
+	     <editchange>/shared['oembed']/editchange</editchange>
+	     <logochange>/shared['oembed']/logochange</logochange>
 	</model>
 	
 	<view id="#screen">
 		<template>screen.mst</template>
 		<controller id="ScreenController">
+		</controller>
+	</view>
+	
+	<view id="#edit">
+		<template>edit/edit.mst</template>
+		<style>edit/edit.css</style>
+		<controller id="EmbedEditController">
+		</controller>
+	</view>
+	
+	<view id="#login">
+		<template>edit/login.mst</template>
+		<style>edit/login.css</style>
+		<controller id="EmbedLoginController">
 		</controller>
 	</view>
 	

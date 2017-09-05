@@ -1,0 +1,22 @@
+noterik oembed playout stats<br />
+<br />
+video id : {{videoid}}<br />
+plays : {{plays}}<br />
+streamed : {{streamed}}<br />
+slowstream : {{slowstream}}<br />
+last played : {{lastplayed}}<br />
+<br />
+mac safari : {{mac_safari}}<br />
+mac chrome : {{mac_chrome}}<br />
+mac firefox : {{mac_firefox}}<br />
+
+<div id="edit_reset_label">Statistics</div><div id="edit_reset">RESET</DIV>
+{{#logo}}
+<div id="edit_logo_label">show logo</div><div id="edit_logo_on_active" class="edit_logo_button">ON</DIV><div id="edit_logo_off" class="edit_logo_button">OFF</DIV>
+{{/logo}}
+{{^logo}}
+<div id="edit_logo_label">show logo</div><div id="edit_logo_on" class="edit_logo_button">ON</DIV><div id="edit_logo_off_active" class="edit_logo_button">OFF</DIV>
+{{/logo}}
+
+<div id="edit_done">DONE</DIV>
+

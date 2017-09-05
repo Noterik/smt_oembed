@@ -1,0 +1,3 @@
+<div id="login_label">password</div>
+<input id="login_input" value="" type="password" />
+<button id="login_submit">LOGIN</button>

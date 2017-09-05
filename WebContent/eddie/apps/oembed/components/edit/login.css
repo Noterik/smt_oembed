@@ -1,0 +1,13 @@
+#login {
+	position: absolute;
+	font-size: 2vh;
+	z-index: 1000;
+	color: white;
+	padding: 10px;
+	background-color: black;
+	border-radius: 10px;
+	opacity: 0.9;
+	top: 40%;
+	left: 25%;
+	width: 45%;
+}

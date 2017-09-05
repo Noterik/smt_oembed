@@ -39,7 +39,14 @@ public class OembedApplication extends Html5Application {
     	s.get("#screen").attach(new ScreenController()); // add the screen tag (backwards comp)
     	String embedurl = s.getParameter("url");
     	String embedtype = findEmbedType(embedurl);
-    	s.get("#screen").append("div","oembed",new OembedController(embedurl,embedtype)); 
+    	
+		Capabilities cap = s.getCapabilities();
+		String platform = s.getCapabilities().getCapability("platform");
+		String useragent = s.getCapabilities().getCapability("useragent");
+		
+		//System.out.println("CAP="+cap.getCapabilities().toString());
+		
+    	s.get("#screen").append("div","oembed",new OembedController(embedurl,embedtype,platform,useragent)); 
     }
     
     private String findEmbedType(String url) {
@@ -47,6 +54,8 @@ public class OembedApplication extends Html5Application {
     	if (url.indexOf("flickr.com")!=-1) {
     		return "flickr";
     	} else if (url.indexOf("/domain/")!=-1 && url.indexOf("/video/")!=-1) {
+    		return "mstvideo";
+    	} else if (url.indexOf(".mp4")!=-1) {
     		return "mstvideo";
     	}
     	return null;

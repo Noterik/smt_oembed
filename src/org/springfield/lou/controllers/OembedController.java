@@ -18,11 +18,15 @@ public class OembedController extends Html5Controller {
 	
 	String url;
 	String type;
+	String useragent;
+	String platform;
 	
-	public OembedController(String u,String t) {
+	public OembedController(String u,String t,String p,String ua) {
 		super();
 		url=u;
 		type=t;
+		useragent = ua;
+		platform = p;
 		System.out.println("TYPE="+t);
 	}
 	
@@ -34,10 +38,11 @@ public class OembedController extends Html5Controller {
 		selector = sel;
     	model.setProperty("@embedurl",url);
     	model.setProperty("@embedtype",type);
+    	model.setProperty("@embedplatform",platform);
+    	model.setProperty("@embeduseragent",useragent);
 		fillPage();
 		
 		String embedtype = model.getProperty("@embedtype");
-		System.out.println("EMBEDTYPE="+embedtype);
 		if (embedtype.equals("flickr")) {
 	    	screen.get(selector).append("div","flickr",new FlickrController()); 	
 		} else if (embedtype.equals("mstvideo")) {
