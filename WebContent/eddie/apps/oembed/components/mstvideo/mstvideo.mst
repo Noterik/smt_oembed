@@ -1,3 +1,7 @@
+<script>
+document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+
 {{#mstvideo}}
 	{{#showmeta}}
 	<div id="mstvideo_player_metadata">
@@ -9,7 +13,7 @@
 	</div>
 	{{/showmeta}}
 	{{^noplay}}
-	<video id="mstvideo_player" autoplay controls>
+	<video id="mstvideo_player" controlslist="nodownload" autoplay controls>
 		{{#mstticket}}
 		<source id="mstvideo_player_video" src="{{url}}?ticket={{ticket}}" type="video/mp4">
 		{{/mstticket}}
