@@ -326,7 +326,7 @@ public class MstVideoController extends Html5Controller {
 				System.out.println("SIGNAL TICKET");
 			}
 			String ticket  = sendTicket(embedurl);
-			String url = "http://stream.noterik.com/progressive"+embedurl+"/rawvideo/1/raw.mp4";
+			String url = "https://stream.noterik.com/progressive"+embedurl+"/rawvideo/1/raw.mp4";
 
 			newdata.put("url", url);
 			newdata.put("ticket", ticket);

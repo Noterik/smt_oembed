@@ -17,7 +17,7 @@
         var searchParams = new URLSearchParams(window.location.search);
         console.log(searchParams.get("id"));
         var xmlHttp = new XMLHttpRequest();
-        var url = "http://oembed.euscreen.eu/services/oembed?format=json&url=http://oembed.euscreen.eu/euscreen/"+searchParams.get("id");
+        var url = "https://oembed.euscreen.eu/services/oembed?format=json&url=https://oembed.euscreen.eu/euscreen/"+searchParams.get("id");
         xmlHttp.open( "GET", url, false );    
         xmlHttp.send( null );
         var body = JSON.parse(xmlHttp.responseText);
