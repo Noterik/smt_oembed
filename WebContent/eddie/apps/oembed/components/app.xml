@@ -64,4 +64,11 @@
 		</controller>
 	</view>
 
+	<view id="#mstaudio">
+		<template>mstaudio/mstaudio.mst</template>
+		<style>mstaudio/mstaudio.css</style>
+		<controller id="MstAudioController">
+		</controller>
+	</view>
+
 </app>

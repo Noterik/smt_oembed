@@ -55,8 +55,12 @@ public class OembedApplication extends Html5Application {
     		return "flickr";
     	} else if (url.indexOf("/domain/")!=-1 && url.indexOf("/video/")!=-1) {
     		return "mstvideo";
+    	} else if (url.indexOf("/domain/")!=-1 && url.indexOf("/audio/")!=-1) {
+    	    	return "mstaudio";
     	} else if (url.indexOf(".mp4")!=-1) {
     		return "mstvideo";
+    	} else if (url.indexOf(".mp3") != -1) {
+    	    	return "mstaudio";
     	}
     	return null;
     }

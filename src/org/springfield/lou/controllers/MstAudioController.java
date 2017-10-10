@@ -15,7 +15,7 @@ import org.springfield.lou.homer.LazyHomer;
 import org.springfield.lou.model.*;
 import org.springfield.lou.screen.Screen;
 
-public class MstVideoController extends Html5Controller {
+public class MstAudioController extends Html5Controller {
 	
 	static Random generator;
 	private int visiblecountdown = 0;
@@ -69,9 +69,9 @@ public class MstVideoController extends Html5Controller {
 		presetnode = model.getNode("/domain['oembed']/presets['default']");
 		String logo = presetnode.getProperty("logo");
 		if (logo!=null && logo.equals("on")) {
-			screen.get("#mstvideo_logo").css("visibility","visible");
+			screen.get("#mstaudio_logo").css("visibility","visible");
 		} else {
-			screen.get("#mstvideo_logo").css("visibility","hidden");		
+			screen.get("#mstaudio_logo").css("visibility","hidden");		
 		}
 	}
 	
@@ -79,8 +79,8 @@ public class MstVideoController extends Html5Controller {
 		presetnode = model.getNode("/domain['oembed']/presets['default']");
 		String logo_x = presetnode.getProperty("logo_x");
 		String logo_y = presetnode.getProperty("logo_y");
-		screen.get("#mstvideo_logo").css("left",logo_x);
-		screen.get("#mstvideo_logo").css("top",logo_y);		
+		screen.get("#mstaudio_logo").css("left",logo_x);
+		screen.get("#mstaudio_logo").css("top",logo_y);		
 	}
 	
 	public void fillPage() {
@@ -152,12 +152,12 @@ public class MstVideoController extends Html5Controller {
 		
 		screen.get(selector).render(data);
 		screen.get(selector).track("mousemove","positionChange", this);
-		model.setProperty("@keyeventowner","mstvideo");
-		screen.get("#mstvideo_player").track("currentTime","currentTime", this); // track the currentTime
-	//	screen.get("#mstvideo_logo").draggable();
+		model.setProperty("@keyeventowner","mstaudio");
+		screen.get("#mstaudio_player").track("currentTime","currentTime", this); // track the currentTime
+	//	screen.get("#mstaudio_logo").draggable();
 
-		//screen.get("#mstvideo_logo").track("screenXPerc","onDragX", this);
-		//screen.get("#mstvideo_logo").track("screenYPerc","onDragY", this);
+		//screen.get("#mstaudio_logo").track("screenXPerc","onDragX", this);
+		//screen.get("#mstaudio_logo").track("screenYPerc","onDragY", this);
 		
 	    screen.get(selector).on("mousedown","onDragStart", this);
 	    screen.get(selector).on("mouseup","onDragStop", this);
@@ -165,8 +165,8 @@ public class MstVideoController extends Html5Controller {
 		presetnode = model.getNode("/domain['oembed']/presets['default']");
 		String logo_x = presetnode.getProperty("logo_x");
 		String logo_y = presetnode.getProperty("logo_y");
-		screen.get("#mstvideo_logo").css("left",logo_x);
-		screen.get("#mstvideo_logo").css("top",logo_y);	
+		screen.get("#mstaudio_logo").css("left",logo_x);
+		screen.get("#mstaudio_logo").css("top",logo_y);	
 	}
 	
 	public void onDragStart(Screen s,JSONObject data) {
@@ -272,7 +272,7 @@ public class MstVideoController extends Html5Controller {
 	
     public void keyPressed(Screen s,JSONObject data) {
 	    String kc = model.getProperty("@keyeventowner");
-	    if (kc==null || !kc.equals("mstvideo")) return;
+	    if (kc==null || !kc.equals("mstaudio")) return;
 	    
     	Long which = (Long)data.get("which");
 		if (which==76) {
@@ -284,7 +284,7 @@ public class MstVideoController extends Html5Controller {
 		if (visiblecountdown>0) {
 			visiblecountdown = visiblecountdown - 1;
 		} else {
-			screen.get("#mstvideo_player_metadata").css("visibility","hidden");
+			screen.get("#mstaudio_player_metadata").css("visibility","hidden");
 		}
 		// check the slow stream count
 		if (streamedtimer>0) {
@@ -301,8 +301,8 @@ public class MstVideoController extends Html5Controller {
 		// make diff visible, reset timer
 		
 	    String kc = model.getProperty("@keyeventowner");
-	    if (kc==null || !kc.equals("mstvideo")) return;
-		screen.get("#mstvideo_player_metadata").css("visibility","visible");
+	    if (kc==null || !kc.equals("mstaudio")) return;
+		screen.get("#mstaudio_player_metadata").css("visibility","visible");
 		visiblecountdown = 4;
 		if (indrag) {
 			Double newx = (Double)data.get("screenXP");
@@ -315,23 +315,28 @@ public class MstVideoController extends Html5Controller {
 	
 	
 	private void addOEmbedData(JSONObject data,String embedurl) {
-			// strip off the fake start part if needed 
+		// strip off the fake start part if needed 
 		JSONObject newdata = new JSONObject();
-			int pos=embedurl.indexOf("/euscreen/");
-			if (pos!=-1) {
-				embedurl = embedurl.substring(pos+9);
-				newdata.put("mstticket","true");
-				System.out.println("SIGNAL TICKET");
-			}
-			String ticket  = sendTicket(embedurl);
-			String url = "https://stream.noterik.com/progressive"+embedurl+"/rawvideo/1/raw.mp4";
-
-			newdata.put("url", url);
-			newdata.put("ticket", ticket);
-			data.put("mstvideo", newdata);
+		String url = null;
+		String ticket = null;
+		if (embedurl.indexOf("stream") != -1) {		
+		    int pos=embedurl.indexOf("/euscreen/");
+		    if (pos!=-1) {
+			embedurl = embedurl.substring(pos+9);
+			newdata.put("mstticket","true");
+			System.out.println("SIGNAL TICKET");
+		    }
+		    ticket  = sendTicket(embedurl);
+			
+		    url = "https://stream.noterik.com/progressive"+embedurl+"/rawvideo/1/raw.mp4";
+		}
+		
+		newdata.put("url", url);
+		newdata.put("ticket", ticket);
+		data.put("mstaudio", newdata);
 	}
 
-	private static String sendTicket(String videoFile) {
+	private static String sendTicket(String audioFile) {
 		String ipAddress = LazyHomer.getExternalIpNumber();
 		String random = ""+generator.nextInt(999999999);
 		String ticket = "mst_"+LazyHomer.getExternalIpNumber()+"_"+random;
@@ -348,9 +353,9 @@ public class MstVideoController extends Html5Controller {
 		urlConnection.setDoOutput(true);
 		urlConnection.setRequestMethod("POST");
 		urlConnection.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
-		videoFile=videoFile.substring(1);
+		audioFile=audioFile.substring(1);
 	
-		System.out.println("I send this video address to the ticket server:"+videoFile);
+		System.out.println("I send this audio address to the ticket server:"+audioFile);
 		System.out.println("And this ticket:"+ticket);
 		System.out.println("And this EXPIRY:"+expiry);
 		
@@ -358,7 +363,7 @@ public class MstVideoController extends Html5Controller {
 		BufferedWriter httpRequestBodyWriter = 
 		new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
 			String content = "<fsxml><properties><ticket>"+ticket+"</ticket>"
-			+ "<uri>/"+videoFile+"</uri><ip>"+ipAddress+"</ip> "
+			+ "<uri>/"+audioFile+"</uri><ip>"+ipAddress+"</ip> "
 			+ "<role>user</role>"
 			+ "<expiry>"+expiry+"</expiry><maxRequests>1</maxRequests></properties></fsxml>";
 		httpRequestBodyWriter.write(content);

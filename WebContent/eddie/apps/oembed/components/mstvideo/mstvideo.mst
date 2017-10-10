@@ -1,7 +1,3 @@
-<script>
-document.addEventListener('contextmenu', event => event.preventDefault());
-</script>
-
 {{#mstvideo}}
 	{{#showmeta}}
 	<div id="mstvideo_player_metadata">
@@ -26,6 +22,6 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 	{{/logo}}
 	{{/noplay}}
 	{{#noplay}}
-		<div id="mstvideo_illegal">Illegal access : {{noplay}}</div>
+		<div id="mstvideo_illegal">Please refresh this page to view this video</div>
 	{{/noplay}}
 {{/mstvideo}}

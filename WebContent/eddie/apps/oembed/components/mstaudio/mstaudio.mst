@@ -1,0 +1,27 @@
+{{#mstaudio}}
+	{{#showmeta}}
+	<div id="mstaudio_player_metadata">
+		title : {{title}}<br/>
+		provider : {{provider_name}}<br/>
+		author : {{author_name}}<br/>
+		license : {{license}}<br />
+		genre : {{genre}}
+	</div>
+	{{/showmeta}}
+	{{^noplay}}
+	<audio id="mstaudio_player" controlslist="nodownload" autoplay controls>
+		{{#mstticket}}
+		<source id="mstaudio_player_audio" src="{{url}}?ticket={{ticket}}">
+		{{/mstticket}}
+		{{^mstticket}}
+		<source id="mstaudio_player_audio" src="{{embedurl}}">
+		{{/mstticket}}
+	</audio>
+	{{#logo}}
+		<img id="mstaudio_logo" style="left:{{pos_x}};top:{{pos_y}};" src="{{logo_url}}" />
+	{{/logo}}
+	{{/noplay}}
+	{{#noplay}}
+		<div id="mstaudio_illegal">Please refresh this page to play this audio file</div>
+	{{/noplay}}
+{{/mstaudio}}
