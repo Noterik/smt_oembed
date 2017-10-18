@@ -22,6 +22,6 @@
 	{{/logo}}
 	{{/noplay}}
 	{{#noplay}}
-		<div id="mstvideo_illegal">Please refresh this page to view this video</div>
+		<div id="mstvideo_illegal">Please click refresh in your browser to view the video</div>
 	{{/noplay}}
 {{/mstvideo}}

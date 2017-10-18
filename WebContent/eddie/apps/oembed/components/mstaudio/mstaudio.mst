@@ -22,6 +22,6 @@
 	{{/logo}}
 	{{/noplay}}
 	{{#noplay}}
-		<div id="mstaudio_illegal">Please refresh this page to play this audio file</div>
+		<div id="mstaudio_illegal">Please click refresh in your browser to play the audio</div>
 	{{/noplay}}
 {{/mstaudio}}
