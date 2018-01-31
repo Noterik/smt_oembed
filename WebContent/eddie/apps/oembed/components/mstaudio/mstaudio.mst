@@ -10,12 +10,12 @@
 	{{/showmeta}}
 	{{^noplay}}
 	<audio id="mstaudio_player" controlslist="nodownload" autoplay controls>
-		{{#mstticket}}
-		<source id="mstaudio_player_audio" src="{{url}}?ticket={{ticket}}">
-		{{/mstticket}}
-		{{^mstticket}}
+		{{#euscreen}}
+		<source id="mstaudio_player_audio" src="{{url}}{{#ticket}}?ticket={{ticket}}{{/ticket}}">
+		{{/euscreen}}
+		{{^euscreen}}
 		<source id="mstaudio_player_audio" src="{{embedurl}}">
-		{{/mstticket}}
+		{{/euscreen}}
 	</audio>
 	{{#logo}}
 		<img id="mstaudio_logo" style="left:{{pos_x}};top:{{pos_y}};" src="{{logo_url}}" />

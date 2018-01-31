@@ -314,21 +314,35 @@ public class MstVideoController extends Html5Controller {
 	}
 	
 	
-	private void addOEmbedData(JSONObject data,String embedurl) {
-			// strip off the fake start part if needed 
+	private void addOEmbedData(JSONObject data,String embedurl) {		
+		String ticket = "";
+		String url = "";
+		
 		JSONObject newdata = new JSONObject();
-			int pos=embedurl.indexOf("/euscreen/");
-			if (pos!=-1) {
-				embedurl = embedurl.substring(pos+9);
-				newdata.put("mstticket","true");
+		
+		// strip off the fake start part if needed 
+		int pos=embedurl.indexOf("euscreen.eu/euscreen/");
+		if (pos!=-1) {
+			newdata.put("euscreen","true");
+			embedurl = embedurl.substring(pos+21);				
+			
+			if (embedurl.startsWith("http")) {					
+				System.out.println("External EUscreen provider");
+				
+				newdata.put("externaleusreen","true");
+				
+				url = embedurl;
+			} else {
 				System.out.println("SIGNAL TICKET");
-			}
-			String ticket  = sendTicket(embedurl);
-			String url = "https://stream.noterik.com/progressive"+embedurl+"/rawvideo/1/raw.mp4";
 
-			newdata.put("url", url);
-			newdata.put("ticket", ticket);
-			data.put("mstvideo", newdata);
+				ticket  = sendTicket(embedurl);
+				newdata.put("ticket", ticket);
+					
+				url = "https://stream.noterik.com/progressive/"+embedurl+"/rawvideo/1/raw.mp4";
+			}
+		}
+		newdata.put("url", url);			
+		data.put("mstvideo", newdata);
 	}
 
 	private static String sendTicket(String videoFile) {
@@ -348,7 +362,6 @@ public class MstVideoController extends Html5Controller {
 		urlConnection.setDoOutput(true);
 		urlConnection.setRequestMethod("POST");
 		urlConnection.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
-		videoFile=videoFile.substring(1);
 	
 		System.out.println("I send this video address to the ticket server:"+videoFile);
 		System.out.println("And this ticket:"+ticket);

@@ -147,7 +147,7 @@ public class MstAudioController extends Html5Controller {
 		data.put("embedtype",embedtype);
 		System.out.println("EMBEDURL="+embedurl);
 		data.put("embedurl",embedurl);
-		addOEmbedData(data,embedurl);
+		addOEmbedData(data,embedurl,euscreennode);
 		addStatPlays();
 		
 		screen.get(selector).render(data);
@@ -314,25 +314,31 @@ public class MstAudioController extends Html5Controller {
 	}
 	
 	
-	private void addOEmbedData(JSONObject data,String embedurl) {
-		// strip off the fake start part if needed 
+	private void addOEmbedData(JSONObject data,String embedurl, FsNode node) {
+		String url = "";
+
 		JSONObject newdata = new JSONObject();
-		String url = null;
-		String ticket = null;
-		if (embedurl.indexOf("stream") != -1) {		
-		    int pos=embedurl.indexOf("/euscreen/");
-		    if (pos!=-1) {
-			embedurl = embedurl.substring(pos+9);
-			newdata.put("mstticket","true");
-			System.out.println("SIGNAL TICKET");
-		    }
-		    ticket  = sendTicket(embedurl);
+
+		// strip off the fake start part if needed 
+		int pos=embedurl.indexOf("euscreen.eu/euscreen/");
+		if (pos!=-1) {
+			newdata.put("euscreen","true");			
+			embedurl = embedurl.substring(pos+21);
 			
-		    url = "https://stream.noterik.com/progressive"+embedurl+"/rawvideo/1/raw.mp4";
-		}
-		
+			if (embedurl.startsWith("http")) {					
+				System.out.println("External EUscreen provider");
+				
+				url = embedurl;
+			} else {
+				if (embedurl.startsWith("audio1/")) {
+					embedurl = embedurl.substring(embedurl.indexOf("audio1/")+7);
+				}				
+				FsNode rawNode = Fs.getNode(node.getPath() + "/rawaudio/1");
+				
+				url = "https://audio1.noterik.com/"+embedurl+"/rawaudio/1/raw."+rawNode.getProperty("extension");
+			}
+		}		
 		newdata.put("url", url);
-		newdata.put("ticket", ticket);
 		data.put("mstaudio", newdata);
 	}
 
@@ -353,7 +359,6 @@ public class MstAudioController extends Html5Controller {
 		urlConnection.setDoOutput(true);
 		urlConnection.setRequestMethod("POST");
 		urlConnection.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
-		audioFile=audioFile.substring(1);
 	
 		System.out.println("I send this audio address to the ticket server:"+audioFile);
 		System.out.println("And this ticket:"+ticket);

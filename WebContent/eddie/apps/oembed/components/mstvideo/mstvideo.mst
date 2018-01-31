@@ -10,12 +10,12 @@
 	{{/showmeta}}
 	{{^noplay}}
 	<video id="mstvideo_player" controlslist="nodownload" autoplay controls>
-		{{#mstticket}}
-		<source id="mstvideo_player_video" src="{{url}}?ticket={{ticket}}" type="video/mp4">
-		{{/mstticket}}
-		{{^mstticket}}
+		{{#euscreen}}
+		<source id="mstvideo_player_video" src="{{url}}{{#ticket}}?ticket={{ticket}}{{/ticket}}" type="video/mp4">
+		{{/euscreen}}
+		{{^euscreen}}
 		<source id="mstvideo_player_video" src="{{embedurl}}" type="video/mp4">
-		{{/mstticket}}
+		{{/euscreen}}
 	</video>
 	{{#logo}}
 		<img id="mstvideo_logo" style="left:{{pos_x}};top:{{pos_y}};" src="{{logo_url}}" />
